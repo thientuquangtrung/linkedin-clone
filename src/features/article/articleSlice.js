@@ -28,7 +28,7 @@ const articleSlice = createSlice({
 });
 
 export const postArticleApi = (payload) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setLoading(true));
         if (payload.image !== "") {
             const storageRef = ref(storage, `/files/${payload.image.name}`);
@@ -51,7 +51,7 @@ export const postArticleApi = (payload) => {
                     );
 
                     const dbRef = collection(db, "articles");
-                    addDoc(dbRef, {
+                    await addDoc(dbRef, {
                         actor: {
                             description: payload.user.email,
                             title: payload.user.displayName,
@@ -66,9 +66,10 @@ export const postArticleApi = (payload) => {
                     dispatch(setLoading(false));
                 }
             );
-        } else if (payload.video) {
+        } 
+        else if (payload.video) {
             const dbRef = collection(db, "articles");
-            addDoc(dbRef, {
+            await addDoc(dbRef, {
                 actor: {
                     description: payload.user.email,
                     title: payload.user.displayName,
@@ -80,7 +81,7 @@ export const postArticleApi = (payload) => {
                 comments: 0,
                 description: payload.description,
             });
-            dispatch(setLoading(true));
+            dispatch(setLoading(false));
         }
     };
 };

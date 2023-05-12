@@ -17,9 +17,9 @@ const userSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(signInApi.fulfilled, (state, action) => {
-                return action.payload;
-            })
+            // .addCase(signInApi.fulfilled, (state, action) => {
+            //     return action.payload;
+            // })
             .addCase(signOutApi.fulfilled, (state) => {
                 state.user = null;
             });
